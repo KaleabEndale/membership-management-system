@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Profile</title>
+    <style>
+        /* Basic form styling */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            font-size: 1.1rem;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        label {
+            font-weight: bold;
+            margin: 5px;
+            display: inline-block;
+            color: #555;
+        }
+
+        select, button {
+            padding: 10px;
+            margin: 5px;
+            width: 80%;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: #42a5f5;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover, select:hover {
+            background-color: #1e88e5;
+        }
+
+        /* Label styling */
+        label {
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <form action="" method="post">
+        <!-- Language Selection -->
+        <label id="lg">Language</label>
+        <select name="lang" id="lang" onchange="updatestext()">
+            <option value="eng">eng</option>
+            <option value="amh">amh</option>
+        </select><br>
+
+        <div>
+            <!-- Member Profile Information -->
+            <h1 id="mp">MEMBER PROFILE</h1><br>
+            <label id="name">Name</label>: <%= locals.mn %><br>
+            <label id="contact">Contact</label>: <%= locals.mc %><br>
+            <label id="email">Email</label>: <%= locals.me %><br>
+            <label id="address">Address</label>: <%= locals.ma %><br>
+            <label id="mt">Membership type</label>: <%= locals.mmt %><br>
+            <label id="ms">Membership status</label>: <%= locals.mms %><br>
+            <label id="ed">Expiration date</label>: <%= locals.med %><br>
+            <label id="od">Outstanding dues</label>: <%= locals.mod %> <%= locals.mmc %><br>
+        </div>
+
+        <!-- Update Profile Button -->
+        <button id="up" type="submit" formaction="/member/up" formmethod="post">Update profile</button><br>
+
+        <!-- Hidden Fields for Data Submission -->
+        <input type="hidden" name="si" value="<%= locals.si %>">
+        <input type="hidden" name="mmt" value="<%= locals.mmt %>">
+
+        <!-- Other Buttons -->
+        <button id="ph" formaction="/member/paymenthistory" formmethod="post">Payment history</button><br>
+        <button id="cs" formaction="/member/cancelsubscription" formmethod="post">Cancel subscription</button><br>
+        <button id="tac" formaction="/member/tac" formmethod="post">Terms and conditions</button><br>
+
+        <!-- Conditional Button for Updated Payment Method -->
+        <% if(showButton){ %>
+        <button formaction="/member/upm" formmethod="post" type="submit">Updated payment method</button>
+        <% } %>
+    </form><br>
+
+    <!-- Logout Button (in separate form as it does not need lang) -->
+    <form action="/member/logout" method="post">
+        <button id="lo">Logout</button>
+    </form>
+
+    <script>
+        let message = '<%= locals.msg %>';
+        if (message) {
+            alert(message);
+        }
+
+        function updatestext() {
+            const value = document.getElementById('lang').value;
+
+            if (value === 'eng') {
+                // Update English Labels
+                document.getElementById('lg').textContent = 'Language';
+                document.getElementById('mp').textContent = 'MEMBER PROFILE';
+                document.getElementById('name').textContent = 'Name';
+                document.getElementById('contact').textContent = 'Contact';
+                document.getElementById('email').textContent = 'Email';
+                document.getElementById('address').textContent = 'Address';
+                document.getElementById('mt').textContent = 'Membership type';
+                document.getElementById('ms').textContent = 'Membership status';
+                document.getElementById('ed').textContent = 'Expiration date';
+                document.getElementById('od').textContent = 'Outstanding dues';
+                document.getElementById('up').textContent = 'Update profile';
+                document.getElementById('ph').textContent = 'Payment history';
+                document.getElementById('cs').textContent = 'Cancel subscription';
+                document.getElementById('tac').textContent = 'Terms and conditions';
+                document.getElementById('lo').textContent = 'Logout';
+            } else if (value === 'amh') {
+                // Update Amharic Labels
+                document.getElementById('lg').textContent = 'ቋንቋ';
+                document.getElementById('mp').textContent = 'የአባል ገጽታ';
+                document.getElementById('name').textContent = 'ስም';
+                document.getElementById('contact').textContent = 'ስልክ ቁጥር';
+                document.getElementById('email').textContent = 'ኢሜል';
+                document.getElementById('address').textContent = 'አድራሻ';
+                document.getElementById('mt').textContent = 'የእቅድ አይነት';
+                document.getElementById('ms').textContent = 'የእቅድ ሁኔታ';
+                document.getElementById('ed').textContent = 'ማለቂያ ጊዜ';
+                document.getElementById('od').textContent = 'ያለቦት ገንዘብ';
+                document.getElementById('up').textContent = 'ገጽታ አስተካክል';
+                document.getElementById('ph').textContent = 'የክፍያ ታሪክ';
+                document.getElementById('cs').textContent = 'እቅድ ያቋርጡ';
+                document.getElementById('tac').textContent = 'ደንብና ግደታ';
+                document.getElementById('lo').textContent = 'ውጣ';
+            }
+        }
+    </script>
+
+</body>
+</html>

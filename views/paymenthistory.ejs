@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 2rem;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+       
+        li h3 p {
+            margin: 5px 0;
+            font-size: 1rem;
+            color: #555;
+             
+        }
+
+      
+    </style>
+</head>
+<body>
+    <h1><%= locals.ph %></h1>
+
+    <ul>
+        <% locals.payment.forEach(p => { %>
+            <li>
+                <h3><%= locals.e %>: <%= p.email %></h3>
+                <p><%= locals.s %>: <%= p.name %></p>
+                <p><%= locals.a %>: <%= p.amount %> <%= p.currency %></p>
+                <p><%= locals.pt %>: <%= p.paymentTime %></p>
+            </li>
+        <% }); %>
+    </ul>
+</body>
+</html>

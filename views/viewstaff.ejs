@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Staff</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        #f {
+            background-color: #fff;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .staff-info {
+            background-color: #fff;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+        }
+
+        .staff-info label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+        <form  action="/aved/back" method="post">
+     <button type="submit">BACK</button>
+</form>
+    <h1>View Staff</h1>
+
+    <form id="f" action="/aved/viewstaff" method="post">
+        <label for="username">Enter Username</label>
+        <input type="text" id="username" name="username" value="<%= locals.username %>" required><br>
+        <button type="submit">View</button><br>
+    </form><br>
+
+    <!-- Display staff information if available -->
+    <div class="staff-info">
+        <label>ID: <%= locals.id %></label>
+        <label>Username: <%= locals.username1 %></label>
+        <label>Email: <%= locals.email %></label>
+        <label>Contact: <%= locals.contact %></label>
+        <label>Address: <%= locals.address %></label>
+    </div>
+
+    <!-- Error message -->
+    <div class="error-message">
+        <label><%= locals.er %></label>
+    </div>
+</body>
+</html>

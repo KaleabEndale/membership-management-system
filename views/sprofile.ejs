@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin: 10px 0;
+        }
+
+        form {
+            border: 2px solid brown;
+            border-radius: 10px;
+            background-color: #fff;
+            width: 300px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        button {
+            margin: 8px 0;
+            padding: 8px 16px;
+            background-color: #42a5f5;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 80%;
+        }
+
+        button:hover {
+            background-color: #1e88e5;
+        }
+
+        button.logout {
+            background-color: #f44336;
+        }
+
+        button.logout:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <h1>STAFF PROFILE</h1>
+    <h1>NAME: <%= locals.sn %></h1>
+
+    <h1>Member Management</h1>
+    <form>
+        <button formaction="/staff/addmember" formmethod="get">Add Member</button><br>
+        <button formaction="/staff/viewmember" formmethod="get">View Members</button><br>
+        <button formaction="/staff/editmember" formmethod="get">Edit Member</button><br>
+        <button formaction="/staff/deletemember" formmethod="get">Delete Member</button><br>
+        <button formaction="/staff/payformember" formmethod="get">Pay for Member</button><br>
+    </form>
+
+    <form action="/staff/logout" method="post">
+        <button class="logout">Logout</button>
+    </form>
+</body>
+</html>

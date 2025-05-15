@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 320px;
+            text-align: center;
+        }
+
+        h1, h2 {
+            margin: 5px 0;
+            color: #333;
+        }
+
+        select, button {
+            margin: 10px 0;
+            padding: 8px;
+            width: 100%;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #aaa;
+            background-color: #42a5f5;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1e88e5;
+        }
+
+        div {
+            margin: 15px 0;
+            padding: 10px;
+            border: 1px solid #8b4513;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        label {
+            margin-right: 5px;
+            font-weight: bold;
+        }
+
+        input[type="checkbox"] {
+            margin: 5px;
+        }
+
+        p {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <form action="/member/invoice" method="post">
+        <h1><%= locals.invoice %></h1>
+        <h2><%= locals.u %> : <%= locals.username %></h2>
+        <h2><%= locals.e %>  : <%= locals.email %></h2>
+        <h2><%= locals.t %>  : <%= locals.type %></h2>
+        <h2><%= locals.p %>  : <%= locals.price %> $</h2>
+
+        <div>
+            <p><%= locals.contract %></p>
+            <label><%= locals.ag %></label>
+            <input type="checkbox" name="check" value="true" required>
+        </div>
+        <%= locals.c %>
+        <select name="currency" required>
+            <option value="usd">USD</option>
+            <option value="etb">ETB</option>
+            <option value="eur">EUR</option>
+        </select>
+
+        <input type="hidden" name="email" value="<%= locals.email %>">
+        <input type="hidden" name="type" value="<%= locals.type %>">
+        <input type="hidden" name="price" value="<%= locals.price %>">
+        <input type="hidden" name="reccurence" value="<%= locals.reccurence %>">
+
+        <button type="submit"><%= locals.pay %></button>
+    </form>
+
+</body>
+</html>

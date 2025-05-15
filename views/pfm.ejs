@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        #f {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 350px;
+            margin: 0 auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form  action="/aved/back" method="post">
+     <button type="submit">BACK</button>
+</form>
+    <form id="f" action="" method="">
+        <label for="username">Username:</label><br>
+        <input type="text" name="username" required value="<%= locals.username %>"><br>
+
+        <button formaction="/aved/cm" formmethod="post" type="submit">Check</button><br>
+
+        <% if(showButton) { %>
+            <label for="type">Select Type:</label>
+            <select name="type">
+                <option value="standard monthly">Standard Monthly</option>
+                <option value="standard yearly">Standard Yearly</option>
+                <option value="premium monthly">Premium Monthly</option>
+                <option value="premium yearly">Premium Yearly</option>
+                <option value="lifetime">Lifetime</option>
+            </select><br>
+
+            <label for="currency">Select Currency:</label>
+            <select name="currency">
+                <option value="usd">USD</option>
+                <option value="etb">ETB</option>
+                <option value="eur">EUR</option>
+            </select><br>
+
+            <button formaction="/aved/pay" formmethod="post" type="submit">Pay</button>
+        <% } %>
+    </form>
+
+    <div class="error-message">
+        <label><%= locals.er %></label>
+    </div>
+
+</body>
+</html>

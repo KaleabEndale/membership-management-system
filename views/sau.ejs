@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Announcements and Updates</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px auto;
+            width: 70%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .buttons-container button {
+            width: 48%;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            text-align: center;
+            color: red;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>System Announcements and Updates</h1>
+
+    <h2>Templates</h2>
+    <form>
+        <div class="buttons-container">
+            <button formaction="/admin/temp1" formmethod="get">Template for All</button>
+            <button formaction="/admin/temp2" formmethod="get">Template for Standard</button>
+            <button formaction="/admin/temp3" formmethod="get">Template for Premium</button>
+            <button formaction="/admin/temp4" formmethod="get">Template for Premium and Lifetime</button>
+            <button formaction="/admin/temp5" formmethod="get">Template for Lifetime</button>
+        </div>
+    </form>
+
+    <h2>Through Email</h2>
+    <form action="" method="post">
+        <label for="subject">Subject</label>
+        <input type="text" name="subject" id="subject" required value="<%= locals.subject %>"><br>
+
+        <label for="text">Announcement Text</label>
+        <textarea name="text" id="text" required><%= locals.text %></textarea><br>
+
+        <div class="buttons-container">
+            <button type="submit" formaction="/admin/sau/sa" formmethod="post">Send to All</button>
+            <button type="submit" formaction="/admin/sau/ss" formmethod="post">Send to Standard Members</button>
+            <button type="submit" formaction="/admin/sau/sp" formmethod="post">Send to Premium Members</button>
+            <button type="submit" formaction="/admin/sau/spl" formmethod="post">Send to Premium and Lifetime Members</button>
+            <button type="submit" formaction="/admin/sau/sl" formmethod="post">Send to Lifetime Members</button>
+        </div>
+    </form>
+
+    <div class="message">
+        <label><%= locals.ss %></label>
+    </div>
+</body>
+</html>

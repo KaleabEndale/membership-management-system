@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Log</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h2><%= rn %></h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Action</th>
+                <th>Date</th>
+                <th>Detail</th>
+                <th>IP Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% r.forEach(function(item) { %>
+                <tr>
+                    <td><%= item.username %></td>
+                    <td><%= item.action %></td>
+                    <td><%= item.date %></td>
+                    <td><%= item.detail %></td>
+                    <td><%= item.ip %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>

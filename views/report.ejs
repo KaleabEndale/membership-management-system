@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expired and Upcoming Renewal Report</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2><%= rn %></h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th><%= locals.first %></th>
+                <th><%= locals.second %></th>
+            </tr>
+        </thead>
+         <% if (locals.type == 'eurr') { %>
+        <tbody>
+            <% r.forEach(function(item) { %>
+                <tr>
+                    <td><%= item.month %></td>
+                    <td><%= item.expired %></td>
+                    <td><%= item.upcoming %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+           <% } %>
+
+
+            <% if (locals.type == 'prr') { %>
+        <tbody>
+            <% r.forEach(function(item) { %>
+                <tr>
+                    <td><%= item.month %></td>
+                    <td><%= item.payments %></td>
+                    <td><%= item.revenue %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+           <% } %>
+
+
+                 <% if (locals.type == 'grr') { %>
+        <tbody>
+            <% r.forEach(function(item) { %>
+                <tr>
+                    <td><%= item.month %></td>
+                     <td><%= item.growth %></td>
+                    <td><%= item.retention %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+           <% } %>
+
+    </table>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 50px;
+        }
+
+        .reset-container {
+            background-color: #fff;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Password Reset</h1>
+    <div class="reset-container">
+        <form action="/admin/recoverpassword" method="post">
+            <label for="sent">Enter the password sent to your email</label><br>
+            <input type="text" id="sent" name="sent" required value="<%= locals.sent %>"><br>
+            <label for="newpassword">New password</label><br>
+            <input type="password" id="newpassword" name="newpassword" required minlength="8" value="<%= locals.newpassword %>"><br>
+            <button type="submit">Reset</button>
+             <label><%= locals.ade %></label>
+        </form>
+    </div>
+</body>
+</html>

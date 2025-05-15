@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Members Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        div {
+            background-color: #fff;
+            padding: 30px;
+            width: 350px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 8px 0 4px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #42a5f5;
+        }
+
+        button {
+            padding: 12px;
+            margin: 12px 0;
+            background-color: #42a5f5;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1e88e5;
+        }
+
+        a {
+            text-align: center;
+            color: #42a5f5;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #1e88e5;
+        }
+
+        label[for="error"] {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>REGISTER HERE</h1>
+    <div>
+        <form action="/member/reg" method="post">
+            <label>Username</label>
+            <input type="text" required name="username" value="<%= locals.username %>">
+
+            <label>Contact</label>
+            <input type="tel" required pattern="^\+\d{7,15}$" name="contact" value="<%= locals.contact %>" placeholder="+251987654321">
+
+            <label>Address</label>
+            <input type="text" required name="address" value="<%= locals.address %>">
+
+            <label>Email</label>
+            <input type="email" required name="email" value="<%= locals.email %>" placeholder="example@gmail.com">
+
+            <label>Password</label>
+            <input type="password" minlength="8" required name="password" value="<%= locals.password %>">
+
+            <button type="submit">Sign Up</button>
+            <a href="http://localhost:5000/member/login">Already have an account? Sign In</a>
+
+            <% if (locals.er) { %>
+                <label for="error"><%= locals.er %></label>
+            <% } %>
+        </form>
+    </div>
+</body>
+</html>

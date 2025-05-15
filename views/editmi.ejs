@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Membership Item</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            width: 450px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 15px;
+            display: block;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Edit Membership Item</h1>
+
+    <form action="/admin/editmi" method="post">
+        <label>Type: <%= locals.mt %></label><br>
+        <input type="hidden" name="mt" value="<%= locals.mt %>">
+        
+        <label>Price</label><br>
+        <input type="number" name="price" required value="<%= locals.price %>">$<br>
+        
+        <label>Contract (English)</label><br>
+        <textarea name="contract" required><%= locals.contract %></textarea>
+        
+        <label>Contract (Amharic)</label><br>
+        <textarea name="inamharic" required><%= locals.inamharic %></textarea>
+        
+        <button type="submit">Edit</button>
+    </form>
+    
+    <% if (locals.es) { %>
+        <div class="message">
+            <label><%= locals.es %></label>
+        </div>
+    <% } %>
+
+</body>
+</html>

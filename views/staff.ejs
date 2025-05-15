@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            color: #333;
+        }
+
+        div {
+            width: 300px;
+            padding: 20px;
+            border: 2px solid brown;
+            border-radius: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 12px;
+            width: 100%;
+        }
+
+        button {
+            padding: 8px;
+            background-color: #42a5f5;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1e88e5;
+        }
+
+        a {
+            text-align: center;
+            display: block;
+            margin-top: 10px;
+            color: #42a5f5;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        label.error {
+            color: red;
+            font-size: 0.9em;
+            text-align: center;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>LOGIN HERE</h1>
+        <form action="/staff/login" method="post">
+            <label>Username</label>
+            <input type="text" required name="username" value="<%= locals.username %>">
+
+            <label>Password</label>
+            <input type="password" required name="password" value="<%= locals.password %>">
+
+            <button type="submit">Sign in</button>
+            
+            <a href="http://localhost:5000/staff/forgotpassword">Forgot Password?</a>
+            <label class="error"><%= locals.e %></label>
+        </form>
+    </div>
+</body>
+</html>

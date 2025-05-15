@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+            margin: 5px;
+            display: block;
+            color: #555;
+        }
+
+        input {
+            margin-top: 5px;
+            margin-bottom: 8px;
+            padding: 8px;
+            width: calc(100% - 16px);
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            width: 100%;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #42a5f5;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #1e88e5;
+        }
+
+        .alert {
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1><%= locals.upp %></h1>
+    <form action="/member/updateprofile" method="post">
+        <label><%= locals.u %> : <%= locals.username %></label><br>
+        <input type="hidden" name="username" value="<%= locals.username %>">
+        <label><%= locals.c %></label>
+        <input type="tel" required pattern="^\+\d{7,15}$" name="contact" value="<%= locals.contact %>"><br>
+        <label><%= locals.a %></label>
+        <input type="text" required name="address" value="<%= locals.address %>"><br>
+        <label><%= locals.e %></label>
+        <input type="email" required name="email" value="<%= locals.email %>"><br>
+        <button type="submit"><%= locals.up %></button><br>
+    </form>
+    <label class="alert"><%= locals.mu %></label>
+</body>
+</html>

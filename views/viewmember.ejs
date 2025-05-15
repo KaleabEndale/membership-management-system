@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Member</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        #f {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 250px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #42a5f5;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1e88e5;
+        }
+
+        .member-info {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .member-info h2 {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+         <form  action="/aved/back" method="post">
+     <button type="submit">BACK</button>
+</form>
+    <h1>VIEW MEMBER</h1>
+
+    <form id="f" action="/aved/viewmember" method="post">
+        <label for="username">Username</label><br>
+        <input type="text" name="username" value="<%= locals.username %>" required><br>
+        <button type="submit">View</button><br>
+    </form>
+
+    <div class="member-info">
+        <h1>Member Details</h1>
+        <h2>ID: <%= locals.mi %></h2>
+        <h2>Name: <%= locals.mn %></h2>
+        <h2>Contact: <%= locals.mc %></h2>
+        <h2>Email: <%= locals.me %></h2>
+        <h2>Address: <%= locals.ma %></h2>
+        <h2>Membership Type: <%= locals.mmt %></h2>
+        <h2>Membership Status: <%= locals.mms %></h2>
+        <h2>Expiration Date: <%= locals.med %></h2>
+        <h2>Outstanding Dues: <%= locals.mod %> <%= locals.mmc %></h2>
+    </div>
+
+    <label class="error-message"><%= locals.er %></label>
+</body>
+</html>

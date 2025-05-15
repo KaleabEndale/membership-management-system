@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            margin-top: 12px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Admin Profile</h1>
+    <h2>NAME : <%= locals.an %> </h2>
+
+    <!-- Staff Management -->
+    <form action="" method="">
+        <div class="section-title">Staff</div>
+        <button formaction="/admin/addstaff" formmethod="get">Add Staff</button><br>
+        <button formaction="/admin/viewstaff" formmethod="get">View Staff</button><br>
+        <button formaction="/admin/editstaff" formmethod="get">Edit Staff</button><br>
+        <button formaction="/admin/deletestaff" formmethod="get">Delete Staff</button><br>
+    </form>
+
+    <!-- Member Management -->
+    <form action="" method="">
+        <div class="section-title">Member</div>
+        <button formaction="/admin/addmember" formmethod="get">Add Member</button><br>
+        <button formaction="/admin/viewmember" formmethod="get">View Member</button><br>
+        <button formaction="/admin/editmember" formmethod="get">Edit Member</button><br>
+        <button formaction="/admin/deletemember" formmethod="get">Delete Member</button><br>
+        <button formaction="/admin/payformember" formmethod="get">Pay for Member</button><br>
+    </form>
+
+    <!-- Membership Type Edit -->
+    <form action="/admin/emi" method="post">
+        <label for="mt">Membership Type</label>
+        <input type="text" id="mt" name="mt" required value="<%= locals.mt %>"><br>
+        <button type="submit">Edit Membership Items</button>
+    </form>
+
+    <!-- Reports -->
+    <form action="" method="">
+        <label for="date">Year</label>
+        <input type="number" id="date" name="date" required ><br>
+        <button type="submit" formaction="/admin/grr" formmethod="post">Growth & Retention Report</button><br>
+        <button type="submit" formaction="/admin/prr" formmethod="post">Payment & Revenue Report</button><br>
+        <button type="submit" formaction="/admin/eurr" formmethod="post">Expired & Upcoming Renewal Report</button>
+    </form>
+
+    <!-- Activity Log -->
+    <form action="" method="">
+        <label for="log-date">Date ('month/day/year')</label>
+        <input type="text" id="log-date" name="date" required minlength="8"><br>
+        <button type="submit" formaction="/admin/al" formmethod="post">Activity Log</button>
+    </form>
+
+    <!-- System Announcements -->
+    <form action="/admin/sau" method="get">
+        <button type="submit">System Announcements & Updates</button><br>
+    </form>
+
+    <!-- Logout -->
+    <form action="/admin/logout" method="post">
+        <button>Logout</button>
+    </form>
+</body>
+</html>

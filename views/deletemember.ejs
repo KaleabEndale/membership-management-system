@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Member</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        #f{
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 350px;
+            margin: 0 auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ef5350;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #e53935;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+         <form  action="/aved/back" method="post">
+     <button type="submit">BACK</button>
+</form>
+    <h1>DELETE MEMBER</h1>
+
+    <form id="f" action="/aved/deletemember" method="post">
+        <label for="username">Enter Username to Delete:</label><br>
+        <input type="text" name="username" id="username" required><br>
+        <button type="submit">Delete</button>
+    </form>
+
+    <div class="error-message">
+        <label><%= locals.dm %></label>
+    </div>
+</body>
+</html>

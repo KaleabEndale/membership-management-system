@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Member</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        #f {
+            border: 2px solid brown;
+            border-radius: 10px;
+            background-color: #fff;
+            width: 350px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-size: 14px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="password"], input[type="tel"], input[type="email"], input[type="text"] {
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #42a5f5;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1e88e5;
+        }
+
+        label.error {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+      
+    </style>
+</head>
+<body>
+    <form  action="/aved/back" method="post">
+     <button type="submit">BACK</button>
+</form>
+   
+    <h1>ADD MEMBER</h1>
+    <form id="f" action="/aved/addmember" method="post">
+        <label>Username</label><br>
+        <input type="text" required name="username" value="<%= locals.username %>"><br>
+
+        <label>Contact</label><br>
+        <input type="tel" required pattern="^\+\d{7,15}$" name="contact" value="<%= locals.contact %>"><br>
+
+        <label>Address</label><br>
+        <input type="text" required name="address" value="<%= locals.address %>"><br>
+
+        <label>Email</label><br>
+        <input type="email" required name="email" value="<%= locals.email %>"><br>
+
+        <label>Password</label><br>
+        <input type="password" minlength="8" required name="password" value="<%= locals.password %>"><br>
+
+        <button type="submit">Add</button><br>
+    </form>
+
+    <!-- Error or success messages -->
+    <label class="error"><%= locals.er %></label><br>
+    <label class="error"><%= locals.ma %></label><br>
+</body>
+</html>

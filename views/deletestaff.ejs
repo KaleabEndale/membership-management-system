@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Staff</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #f{
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            width: 400px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            background-color: #f44336;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #e53935;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+        <form  action="/aved/back" method="post">
+     <button type="submit">BACK</button>
+</form>
+    <h1>Delete Staff</h1>
+
+    <form id="f" action="/aved/deletestaff" method="post">
+        <label for="username">Username</label><br>
+        <input type="text" name="username" required><br>
+        <button type="submit">Delete</button>
+    </form>
+
+    <% if (locals.dm) { %>
+        <div class="message">
+            <label><%= locals.dm %></label>
+        </div>
+    <% } %>
+</body>
+</html>
