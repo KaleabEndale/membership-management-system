@@ -83,6 +83,7 @@
 
         <!-- Update Profile Button -->
         <button id="up" type="submit" formaction="/member/up" formmethod="post">Update profile</button><br>
+         <button id="uppass" type="submit" formaction="/member/uppass" formmethod="post">Change password</button><br>
 
         <!-- Hidden Fields for Data Submission -->
         <input type="hidden" name="si" value="<%= locals.si %>">
@@ -126,6 +127,7 @@
                 document.getElementById('ed').textContent = 'Expiration date';
                 document.getElementById('od').textContent = 'Outstanding dues';
                 document.getElementById('up').textContent = 'Update profile';
+                document.getElementById('uppass').textContent = 'Update Password';
                 document.getElementById('ph').textContent = 'Payment history';
                 document.getElementById('cs').textContent = 'Cancel subscription';
                 document.getElementById('tac').textContent = 'Terms and conditions';
@@ -143,6 +145,7 @@
                 document.getElementById('ed').textContent = 'ማለቂያ ጊዜ';
                 document.getElementById('od').textContent = 'ያለቦት ገንዘብ';
                 document.getElementById('up').textContent = 'ገጽታ አስተካክል';
+                  document.getElementById('uppass').textContent = 'ፓስወርድ ቀይር';
                 document.getElementById('ph').textContent = 'የክፍያ ታሪክ';
                 document.getElementById('cs').textContent = 'እቅድ ያቋርጡ';
                 document.getElementById('tac').textContent = 'ደንብና ግደታ';

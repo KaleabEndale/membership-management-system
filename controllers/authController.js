@@ -11,14 +11,19 @@ const mds = require('../model/mddb')
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const logs = require('../config/log')
 require('dotenv').config()
+const {validationResult} = require('express-validator')
  
 
 
 
 exports.adminlogin = async(req,res)=>{
+ const errors = validationResult(req);
     const {username , password} = req.body
-   
-    const admin = await admins.findOne({where:{username:username}})
+   if(!errors.isEmpty()){ 
+       const isEmpty = errors.array().map(err=>err.msg)
+       res.render('admin',{username:username,password:password,e:isEmpty})
+   }else{
+   const admin = await admins.findOne({where:{username:username}})
     if(!admin){
         res.render('admin',{username:username,password:password,e:"wrong password or username"})
     }else{
@@ -34,10 +39,16 @@ exports.adminlogin = async(req,res)=>{
     res.render('admin',{username:username,password:password,e:"wrong password or username"})
    }
 }
+   } 
 }
 
 exports.adminforgotpassword = async(req,res)=>{
+     const errors = validationResult(req);
     const email = req.body.email
+   if(!errors.isEmpty()){ 
+       const isEmpty = errors.array().map(err=>err.msg)
+       res.render('afp',{email: email,ade:isEmpty})
+   }else{
     const admin = await admins.findOne({where:{email:email}})
     if(!admin){
         res.render('afp',{email: email,ade:'account doesnot exist '})
@@ -58,11 +69,17 @@ exports.adminforgotpassword = async(req,res)=>{
          res.render('apr')
     }
 }
+}
 
 exports.adminrecoverpassword = async(req,res)=>{
+     const errors = validationResult(req);
     const newpassword = req.body.newpassword
     const sent = req.body.sent
     const token = req.cookies.token
+     if(!errors.isEmpty()){ 
+       const isEmpty = errors.array().map(err=>err.msg)
+      res.render('apr',{newpassword:newpassword,sent:sent,ade:isEmpty})
+   }else{
     if(token){
         const decode =  jwt.verify(token,process.env.RESET_ACCESS_TOKEN,async(err,t)=>{
             if(err){
@@ -79,13 +96,18 @@ exports.adminrecoverpassword = async(req,res)=>{
             }
         })
 }
+   }
 }
 
 
 
 exports.stafflogin = async(req,res)=>{
+     const errors = validationResult(req);
     const {username , password} = req.body
-   
+      if(!errors.isEmpty()){ 
+       const isEmpty = errors.array().map(err=>err.msg)
+      res.render('staff',{username:username,password:password,e:isEmpty})
+   }else{
     const staff = await staffs.findOne({where:{username:username}})
     if(!staff){
         res.render('staff',{username:username,password:password,e:"wrong password or username"})  
@@ -102,13 +124,19 @@ exports.stafflogin = async(req,res)=>{
     res.render('staff',{username:username,password:password,e:"wrong password or username"})
    }
 }
+   }
 }
 
 
 
 exports.staffforgotpassword = async(req,res)=>{
+    const errors = validationResult(req);
     const email = req.body.email
     const staff = await staffs.findOne({where:{email:email}})
+       if(!errors.isEmpty()){ 
+       const isEmpty = errors.array().map(err=>err.msg)
+       res.render('sfp',{email: email,ade:isEmpty})
+   }else{
     if(!staff){
         res.render('sfp',{email: email,ade:'account doesnot exist '})
     }else{
@@ -128,13 +156,19 @@ exports.staffforgotpassword = async(req,res)=>{
          res.render('spr')
     }
 }
+}
 
 
 
 exports.staffrecoverpassword = async(req,res)=>{
+    const errors = validationResult(req);
     const newpassword = req.body.newpassword
     const sent = req.body.sent
     const token = req.cookies.token
+       if(!errors.isEmpty()){ 
+       const isEmpty = errors.array().map(err=>err.msg)
+          res.render('spr',{newpassword:newpassword,sent:sent,ade:isEmpty})
+   }else{
     if(token){
         const decode =  jwt.verify(token,process.env.RESET_ACCESS_TOKEN,async(err,t)=>{
             if(err){
@@ -151,6 +185,7 @@ exports.staffrecoverpassword = async(req,res)=>{
             }
         })
 }
+   }
 }
 
 
@@ -160,11 +195,15 @@ exports.staffrecoverpassword = async(req,res)=>{
 
 
 exports.memberreg = async (req,res) => {
+     const errors = validationResult(req);
     const {username,password,contact,email,address} = req.body
     const id = uuidvv4()
     const hashedpass = await bcrypt.hash(password,10)
     const ip =   req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress
-
+      if(!errors.isEmpty()){ 
+       const isEmpty = errors.array().map(err=>err.msg)
+         res.render('mreg',{er:isEmpty,username:username,password:password,contact:contact,email:email,address:address})
+   }else{
     members.sync()
     .then(()=>{
         return members.create({id:id,username:username,password:hashedpass,contact:contact,email:email,address:address})
@@ -178,12 +217,17 @@ exports.memberreg = async (req,res) => {
             res.render('mreg',{er:'username already taken',username:username,password:password,contact:contact,email:email,address:address})
         }
     })
-
+   }
 }
 
 
 
 exports.memberlogin = async(req,res)=>{
+     const errors = validationResult(req);
+        if(!errors.isEmpty()){ 
+       const isEmpty = errors.array().map(err=>err.msg)
+         res.render('mlogin',{username:username,password:password,e:isEmpty})  
+        }else {
     try{
     const {username , password} = req.body
     const ip =   req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress
@@ -299,11 +343,17 @@ else{
         res.status(500).send('Error fetching data from stripe');
     }
 }
+}
 
 
 
 exports.memberforgotpassword = async(req,res)=>{
+     const errors = validationResult(req);
     const email = req.body.email
+       if(!errors.isEmpty()){ 
+       const isEmpty = errors.array().map(err=>err.msg)
+       res.render('mfp',{email: email,ade:isEmpty})  
+        }else {
     const member = await members.findOne({where:{email:email}})
     if(!member){
         res.render('mfp',{email: email,ade:'account doesnot exist '})
@@ -324,14 +374,19 @@ exports.memberforgotpassword = async(req,res)=>{
          res.render('mpr')
     }
 }
-
+}
 
 
 exports.memberrecoverpassword = async(req,res)=>{
+     const errors = validationResult(req);
     const newpassword = req.body.newpassword
     const sent = req.body.sent
     const token = req.cookies.token
     const ip =   req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress
+       if(!errors.isEmpty()){ 
+       const isEmpty = errors.array().map(err=>err.msg)
+      res.render('mpr',{newpassword:newpassword,sent:sent,ade:isEmpty})  
+        }else {
     if(token){
         const decode =  jwt.verify(token,process.env.RESET_ACCESS_TOKEN,async(err,t)=>{
             if(err){
@@ -351,7 +406,7 @@ exports.memberrecoverpassword = async(req,res)=>{
         })
 }
 }
-
+}
 
 
 

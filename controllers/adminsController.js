@@ -66,7 +66,7 @@ exports.geteditmi = async(req,res)=>{
    const mt = req.body.mt
    const mi = await mis.findOne({where:{type:mt}})
    if(!mi){
-    console.log('does not exist');
+   res.render('aprofile',{min:'type not found'})
    }else{
     res.render('editmi',{mt:mi.type,price:mi.price,contract:mi.contract,inamharic:mi.inamharic})
    }

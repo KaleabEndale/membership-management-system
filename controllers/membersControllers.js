@@ -9,6 +9,8 @@ const mds = require('../model/mddb')
 const transporter = require('../config/mail')
 const logs = require('../config/log')
 require('dotenv').config()
+const {validationResult} = require('express-validator')
+const bcrypt = require('bcrypt')
 
 
 exports.getmhome = (req,res)=>{
@@ -54,9 +56,9 @@ exports.getup = (req,res)=>{
         }else{ 
             const m = await members.findOne({where:{id:member.id}})
             if(lang === 'eng'){
-                res.render('up',{upp:'UPDATE PROFILE',u:'username',c:'contact',e:'email',a:'address',up:'update',username:m.username,contact:m.contact,email:m.email,address:m.address}) 
+                res.render('up',{lang:lang,upp:'UPDATE PROFILE',u:'username',c:'contact',e:'email',a:'address',up:'update',username:m.username,contact:m.contact,email:m.email,address:m.address}) 
             }else if(lang === 'amh'){
-                res.render('up',{upp:'ገጽታ አስተካክል',u:'ስም',c:'ስልክ ቁጥር',e:'ኢሜል',a:'አድራሻ',up:'አስተካክል',username:m.username,contact:m.contact,email:m.email,address:m.address}) 
+                res.render('up',{lang:lang,upp:'ገጽታ አስተካክል',u:'ስም',c:'ስልክ ቁጥር',e:'ኢሜል',a:'አድራሻ',up:'አስተካክል',username:m.username,contact:m.contact,email:m.email,address:m.address}) 
             }
          
         }
@@ -65,12 +67,95 @@ exports.getup = (req,res)=>{
 }
 
 exports.postup = async(req,res)=>{
+     const errors = validationResult(req);
     const ip =   req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress
-    const {username,contact,email,address} = req.body
+    const {username,contact,email,address,lang} = req.body
+    const m = await members.findOne({where:{username:username}})
+    const mt = await mds.findOne({where:{id:m.id}})
+      if(!errors.isEmpty()){ 
+       const isEmpty = errors.array().map(err=>err.msg)
+       if(lang === 'eng'){
+         res.render('up',{mu:isEmpty,lang:lang,upp:'UPDATE PROFILE',u:'username',c:'contact',e:'email',a:'address',up:'update',username:m.username,contact:m.contact,email:m.email,address:m.address})
+       }else if(lang === 'amh'){
+                res.render('up',{mu:isEmpty,lang:lang,upp:'ገጽታ አስተካክል',u:'ስም',c:'ስልክ ቁጥር',e:'ኢሜል',a:'አድራሻ',up:'አስተካክል',username:m.username,contact:m.contact,email:m.email,address:m.address}) 
+            }
+   }else{
+     if(!mt){
+         await members.update({contact:contact,email:email,address:address},{where:{username:username}})
+    logs(username,'update','user updated profile successfully',ip)
+    res.redirect('http://localhost:5000/member/login') 
+     }
+     else if(mt.type == 'lifetime'){
+ await members.update({contact:contact,email:email,address:address},{where:{username:username}})
+    logs(username,'update','user updated profile successfully',ip)
+    res.redirect('http://localhost:5000/member/login')
+     }else{
+        try{
+        const sub = await stripe.subscriptions.retrieve(mt.subid)
+        const cusid = sub.customer
+        await stripe.customers.update(cusid,{
+            email:email
+        })
     await members.update({contact:contact,email:email,address:address},{where:{username:username}})
     logs(username,'update','user updated profile successfully',ip)
     res.redirect('http://localhost:5000/member/login')
+          } catch (error) {
+        console.error('Error fetching data from stripe , ERROR : ', error.message);
+        res.status(500).send('Error fetching data from stripe');
+    }    
+     }   
 }
+}
+
+exports.uppass = async(req,res)=>{
+  const lang = req.body.lang
+   if(lang === 'eng'){
+         res.render('changepass',{lang:lang,cpb:'change password',cp:'CHANGE PASSWORD',op:'old Password',np:'new Password'})
+       }else if(lang === 'amh'){
+      res.render('changepass',{lang:lang,cpb:'ፓስወርድ ቀይር',cp:'ፓስወርድ ቀይር',op:'የድሮ ፓስወርድ',np:'አዲስ ፓስወርድ'})
+            }
+}
+
+exports.changepass = async(req,res)=>{
+     const ip =   req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress
+    const errors = validationResult(req)
+    const oldpassword= req.body.oldpassword
+    const newpassword = req.body.newpassword
+    const token = req.cookies.token
+    const lang = req.body.lang
+if(!errors.isEmpty()){
+        const isEmpty = errors.array().map(err=>err.msg)
+           if(lang === 'eng'){
+         res.render('changepass',{lang:lang,cpb:'change password',cp:'CHANGE PASSWORD',op:'old Password',np:'new Password',mu:isEmpty,oldpassword:oldpassword,newpassword:newpassword})
+       }else if(lang === 'amh'){
+      res.render('changepass',{lang:lang,cpb:'ፓስወርድ ቀይር',cp:'ፓስወርድ ቀይር',op:'የድሮ ፓስወርድ',np:'አዲስ ፓስወርድ',mu:isEmpty,oldpassword:oldpassword,newpassword:newpassword})
+            }
+    }else{
+    const decode =  jwt.verify(token,process.env.ACCESS_TOKEN,async(err,member)=>{
+        if(err){
+            res.render('mlogin')
+        }else{ 
+            const m = await members.findOne({where:{id:member.id}})
+            const p = await bcrypt.compare(oldpassword,m.password)    
+            if(p){
+                await members.update({password:newpassword},{where:{id:m.id}})
+                logs(m.username,'change password','user changed password successfully',ip)
+                res.redirect('http://localhost:5000/member/login')
+                
+            }else{
+        if(lang === 'eng'){
+         res.render('changepass',{lang:lang,cpb:'change password',cp:'CHANGE PASSWORD',op:'old Password',np:'new Password',mu:'wrong password',oldpassword:oldpassword,newpassword:newpassword})
+       }else if(lang === 'amh'){
+      res.render('changepass',{lang:lang,cpb:'ፓስወርድ ቀይር',cp:'ፓስወርድ ቀይር',op:'የድሮ ፓስወርድ',np:'አዲስ ፓስወርድ',mu:'የተሳሳተ ፓስወርድ',oldpassword:oldpassword,newpassword:newpassword})
+            }
+            }
+        }
+    })
+} 
+
+
+}
+
 
 exports.standardmonthly = (req,res)=>{
     const token = req.cookies.token

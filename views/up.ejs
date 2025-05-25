@@ -79,6 +79,7 @@
     <form action="/member/updateprofile" method="post">
         <label><%= locals.u %> : <%= locals.username %></label><br>
         <input type="hidden" name="username" value="<%= locals.username %>">
+        <input type="hidden" name="lang" value="<%= locals.lang %>">
         <label><%= locals.c %></label>
         <input type="tel" required pattern="^\+\d{7,15}$" name="contact" value="<%= locals.contact %>"><br>
         <label><%= locals.a %></label>

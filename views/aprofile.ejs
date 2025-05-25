@@ -93,6 +93,7 @@
         <label for="mt">Membership Type</label>
         <input type="text" id="mt" name="mt" required value="<%= locals.mt %>"><br>
         <button type="submit">Edit Membership Items</button>
+        <label><%= locals.min %></label>
     </form>
 
     <!-- Reports -->
@@ -106,7 +107,7 @@
 
     <!-- Activity Log -->
     <form action="" method="">
-        <label for="log-date">Date ('month/day/year')</label>
+        <label for="log-date">Date ('month/day/year') (n/n/nnnn)</label>
         <input type="text" id="log-date" name="date" required minlength="8"><br>
         <button type="submit" formaction="/admin/al" formmethod="post">Activity Log</button>
     </form>

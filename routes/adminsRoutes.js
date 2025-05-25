@@ -3,16 +3,23 @@ const admins = require('../controllers/adminsController')
 const auth = require('../controllers/authController')
 const authMiddleware = require('../middlewares/authMiddlewares')
 const avedMiddleware = require('../middlewares/avedMiddleware')
-
+const {check} = require('express-validator')
 
 
 router.get('/',authMiddleware.aam,admins.getadmin)
-router.post('/login',auth.adminlogin)
+router.post('/login',[
+    check('username').notEmpty().withMessage("username must not be empty "),
+    check('password').notEmpty().withMessage("password must not be empty")
+],auth.adminlogin)
 
 router.get('/forgotpassword',admins.getadminforgotpassword)
-router.post('/forgotpassword',auth.adminforgotpassword)
+router.post('/forgotpassword',[
+    check('email').notEmpty().withMessage("email must not be empty ").isEmail().withMessage("enter correct email")
+  ],auth.adminforgotpassword)
 
-router.post('/recoverpassword',auth.adminrecoverpassword)
+router.post('/recoverpassword',[
+    check('newpassword').notEmpty().withMessage("password must not be empty").isStrongPassword({minLength:8,minNumbers:1,minUppercase:1,minSymbols:1}).withMessage('password must contain 8 characters and {number,uppercase and symbol}')
+],auth.adminrecoverpassword)
 
 router.post('/logout',admins.adminlogout)
 

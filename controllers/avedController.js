@@ -12,6 +12,7 @@ const transporter = require('../config/mail')
 const cashSubscription = require('../config/cashSubscription')
 const cashPayment =require('../config/cashPayment')
 require('dotenv').config()
+const {validationResult} = require('express-validator')
 
 exports.back = async(req,res)=>{
      const token = req.cookies.token
@@ -37,10 +38,14 @@ exports.back = async(req,res)=>{
 }
 
 exports.addmember = async(req,res)=>{
+      const errors = validationResult(req);
     const {username,password,contact,email,address} = req.body
     const id = uuidvv4()
     const hashedpass = await bcrypt.hash(password,10)
-
+     if(!errors.isEmpty()){ 
+       const isEmpty = errors.array().map(err=>err.msg)
+         res.render('addmember',{er:isEmpty,username:username,password:password,contact:contact,email:email,address:address})
+   }else{
     members.sync()
     .then(()=>{
         return members.create({id:id,username:username,password:hashedpass,contact:contact,email:email,address:address})
@@ -53,6 +58,7 @@ exports.addmember = async(req,res)=>{
             res.render('addmember',{er:'username already taken',username:username,password:password,contact:contact,email:email,address:address})
         }
     })
+}
 }
 
 exports.viewmember = async(req,res)=>{
@@ -159,11 +165,17 @@ exports.editmember = async(req,res)=>{
 }
 
 exports.deletemember = async(req,res)=>{
+       const errors = validationResult(req);
     const username = req.body.username
+    if(!errors.isEmpty()){ 
+       const isEmpty = errors.array().map(err=>err.msg)
+         res.render('deletemember',{dm:isEmpty,username:username})
+   }else{
     const m = await members.findOne({where:{username:username}})
     await members.destroy({where:{username:username}})
     await mds.destroy({where:{id:m.id}})
     res.render('deletemember',{dm:"member deleted successfully"})
+   }
 }
 
 
@@ -216,10 +228,14 @@ if(currency == 'etb'){
 
 
 exports.addstaff = async(req,res)=>{
+     const errors = validationResult(req);
     const {username,password,contact,email,address} = req.body
     const id = uuidvv4()
     const hashedpass = await bcrypt.hash(password,10)
-
+     if(!errors.isEmpty()){ 
+       const isEmpty = errors.array().map(err=>err.msg)
+         res.render('addmember',{er:isEmpty,username:username,password:password,contact:contact,email:email,address:address})
+   }else{
     staffs.sync()
     .then(()=>{
         return staffs.create({id:id,username:username,password:hashedpass,contact:contact,email:email,address:address})
@@ -232,6 +248,7 @@ exports.addstaff = async(req,res)=>{
             res.render('addstaff',{er:'username already taken',username:username,password:password,contact:contact,email:email,address:address})
         }
     })
+}
 }
 
 exports.viewstaff = async(req,res)=>{
@@ -262,7 +279,13 @@ exports.editstaff = async(req,res)=>{
 }
 
 exports.deletestaff = async(req,res)=>{
+    const errors = validationResult(req);
     const username = req.body.username
+      if(!errors.isEmpty()){ 
+       const isEmpty = errors.array().map(err=>err.msg)
+         res.render('deletestaff',{dm:isEmpty,username:username})
+   }else{
     await staffs.destroy({where:{username:username}})
     res.render('deletestaff',{dm:"staff deleted successfully"})
+   }
 }
