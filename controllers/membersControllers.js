@@ -535,34 +535,16 @@ exports.cancelsubscription = async(req,res)=>{
     try{
     const ip =   req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress
     const subid = req.body.si
-const type = req.body.mmt
-const md = await mds.findOne({where:{subid:subid}})
-if(md.how == 'subscription' || md.how == 'session'){
-if(type == 'lifetime'){
+    const type = req.body.mmt
     const m = await mds.findOne({where:{subid:subid}})
     const id = m.id
     const member = await members.findOne({where:{id:id}})
-   const mdel =   await mds.destroy({where:{subid:subid}})
-   logs(member.username,'cancel subscription',`user canceled ${type} subscription successfully`,ip)
-    res.render('mprofile',{mn:member.username,me:member.email,mc:member.contact,ma:member.address}) 
-}else{
-    const m = await mds.findOne({where:{subid:subid}})
-    const id = m.id
-    const member = await members.findOne({where:{id:id}})
-   await mds.destroy({where:{subid:subid}})
+      await mds.destroy({where:{subid:subid}})
     const delsub = await stripe.subscriptions.cancel(subid)
     logs(member.username,'cancel subscription',`user canceled ${type} subscription successfully`,ip)
    res.render('mprofile',{mn:member.username,me:member.email,mc:member.contact,ma:member.address}) 
-}
-}else{
-const m = await mds.findOne({where:{subid:subid}})
-    const id = m.id
-    const member = await members.findOne({where:{id:id}})
-   await mds.destroy({where:{subid:subid}})
-   await stripe.invoices.voidInvoice(subid)
- logs(member.username,'cancel subscription',`user canceled ${type} subscription successfully`,ip)
-   res.render('mprofile',{mn:member.username,me:member.email,mc:member.contact,ma:member.address}) 
-}
+
+
   } catch (error) {
         console.error('Error fetching data from stripe , ERROR : ', error.message);
         res.status(500).send('Error fetching data from stripe');

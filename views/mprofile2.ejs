@@ -91,11 +91,12 @@
 
         <!-- Other Buttons -->
         <button id="ph" formaction="/member/paymenthistory" formmethod="post">Payment history</button><br>
-        <button id="cs" formaction="/member/cancelsubscription" formmethod="post">Cancel subscription</button><br>
+       
         <button id="tac" formaction="/member/tac" formmethod="post">Terms and conditions</button><br>
 
         <!-- Conditional Button for Updated Payment Method -->
         <% if(showButton){ %>
+             <button id="cs" formaction="/member/cancelsubscription" formmethod="post">Cancel subscription</button><br>
         <button formaction="/member/upm" formmethod="post" type="submit">Updated payment method</button>
         <% } %>
     </form><br>
