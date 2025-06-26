@@ -493,7 +493,7 @@ res.render('paymenthistory1',{     ph: "Payment History", e: "Email",s: "Subscri
     })
     const payment = invoices.data.map(invoice =>({
         email:invoice.customer_email,
-        amount: (invoice.amount_paid / 100).toFixed(2),
+        amount: ((invoice.amount_paid / 100).toFixed(2) == 0 ? (invoice.lines.data[0].amount/100).toFixed(2) : (invoice.amount_paid / 100).toFixed(2)) ,
         name: invoice.lines.data[0].description.split(' ')[2] + ' ' +invoice.lines.data[0].description.split(' ')[3],
         currency:invoice.currency,
         paymentTime : new Date(invoice.created*1000).toDateString()

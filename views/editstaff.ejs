@@ -1,94 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Staff</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+      }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
 
-        #f {
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 20px;
-            width: 400px;
-            margin: 0 auto;
-            border: 1px solid #ddd;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+      #f {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        width: 400px;
+        margin: 0 auto;
+        border: 1px solid #ddd;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
 
-        label {
-            font-weight: bold;
-            margin-top: 10px;
-            display: block;
-        }
+      label {
+        font-weight: bold;
+        margin-top: 10px;
+        display: block;
+      }
 
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
+      input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+      }
 
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-        }
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+      }
 
-        button:hover {
-            background-color: #45a049;
-        }
+      button:hover {
+        background-color: #45a049;
+      }
 
-        .message {
-            text-align: center;
-            margin-top: 15px;
-            color: red;
-        }
+      .message {
+        text-align: center;
+        margin-top: 15px;
+        color: red;
+      }
     </style>
-</head>
-<body>
-        <form  action="/aved/back" method="post">
-     <button type="submit">BACK</button>
-</form>
+  </head>
+  <body>
+    <form action="/aved/back" method="post">
+      <button type="submit">BACK</button>
+    </form>
 
     <h1>Edit Staff</h1>
 
     <form id="f" action="/aved/editstaff" method="post">
-        <label for="username">Username: <%= locals.username %></label><br>
-        <input type="hidden" name="username" value="<%= locals.username %>">
+      <label for="username">Username: <%= locals.username %></label><br />
+      <input type="hidden" name="username" value="<%= locals.username %>" />
 
-        <label for="contact">Contact:</label><br>
-        <input type="tel" required pattern="^\+\d{7,15}$" name="contact" value="<%= locals.contact %>"><br>
+      <label for="contact">Contact:</label><br />
+      <input
+        type="tel"
+        required
+        pattern="^\+\d{7,15}$"
+        name="contact"
+        value="<%= locals.contact %>"
+      /><br />
 
-        <label for="address">Address:</label><br>
-        <input type="text" required name="address" value="<%= locals.address %>"><br>
+      <label for="address">Address:</label><br />
+      <input
+        type="text"
+        required
+        name="address"
+        value="<%= locals.address %>"
+      /><br />
 
-        <label for="email">Email:</label><br>
-        <input type="email" required name="email" value="<%= locals.email %>"><br>
+      <label for="email">Email:</label><br />
+      <input
+        type="email"
+        required
+        name="email"
+        value="<%= locals.email %>"
+      /><br />
 
-        <button type="submit">Edit</button>
+      <button type="submit">Edit</button>
     </form>
 
     <% if (locals.mu) { %>
-        <div class="message">
-            <label><%= locals.mu %></label>
-        </div>
+    <div class="message">
+      <label><%= locals.mu %></label>
+    </div>
     <% } %>
-</body>
+  </body>
 </html>
